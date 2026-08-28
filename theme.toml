@@ -1,0 +1,4 @@
+# [flavor]
+# 当前只配置 dark mode；以后需要时再选择独立 light flavor。
+# dark = "catppuccin-mocha"
+

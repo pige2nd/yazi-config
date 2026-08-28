@@ -1,0 +1,4 @@
+*.bak
+*.orig
+*codex-backup*
+.DS_Store

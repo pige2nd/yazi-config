@@ -1,0 +1,35 @@
+# 为普通文件注册 Git status fetcher。
+[[plugin.prepend_fetchers]]
+url   = "*"
+run   = "git"
+group = "git"
+
+# 为目录注册 Git status fetcher。
+[[plugin.prepend_fetchers]]
+url   = "*/"
+run   = "git"
+group = "git"
+
+
+[[plugin.prepend_previewers]]
+url = "*.md"
+run = 'piper --wrap -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"'
+
+[[plugin.prepend_previewers]]
+url = "*/"
+run = 'piper -- eza -TL=3 --color=always --icons=always --group-directories-first --no-quotes "$1"'
+
+[opener]
+glow = [
+  { run = 'glow -p -w="$(tput cols)" %s1', block = true, desc = "Glow" }
+]
+win = [
+  { run = 'for f in %s; do w=$(wslpath -w "$f"); /mnt/c/Windows/explorer.exe "$w"; done || true', block = false, desc = "Open with Windows default program" }
+]
+
+[open]
+prepend_rules = [
+  # 必须将原来的 name 改为 url
+  { url = "*.md", use = "glow" },
+  { url = "*", use = "win" }
+]
