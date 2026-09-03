@@ -6,5 +6,4 @@ require("git"):setup {
 -- searchjump: 拼音搜索跳转
 require("searchjump"):setup {
 	mapdata = require("sjch").data,
-	show_search_in_statusbar = true,
 }
