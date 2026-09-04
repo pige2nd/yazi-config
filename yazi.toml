@@ -31,14 +31,14 @@ glow = [
   { run = 'glow -p -w="$(tput cols)" %s1', block = true, desc = "Glow" }
 ]
 win = [
-  { run = 'for f in %s; do w=$(wslpath -w "$f"); /mnt/c/Windows/explorer.exe "$w"; done || true', block = false, desc = "Open with Windows default program" }
+  { run = 'for f in %s; do (cd /mnt/c && cmd.exe /C start "" "$(wslpath -w "$f")"); done', orphan = true, desc = "Open with Windows default program", for = "linux" }
 ]
 
 [open]
 prepend_rules = [
   { url = "bulk-rename.txt", use = "bulk-rename" },
-  { mime = "text/*", use = "edit" },
   # 必须将原来的 name 改为 url
-  { url = "*.md", use = "glow" },
+  { url = "*.md", use = ["win", "glow", "edit"] },
+  { mime = "text/*", use = ["win", "edit"] },
   { url = "*", use = "win" }
 ]
